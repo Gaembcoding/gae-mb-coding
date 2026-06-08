@@ -1264,46 +1264,22 @@
     <div class="mb-glow-inner"></div>
     <svg class="mb-star" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <linearGradient id="armG" gradientUnits="userSpaceOnUse" x1="82" y1="15" x2="118" y2="185">
-          <stop offset="0%"   stop-color="#ffffff"/>
-          <stop offset="18%"  stop-color="#e8e8e8"/>
-          <stop offset="45%"  stop-color="#b0b0b0"/>
-          <stop offset="72%"  stop-color="#d4d4d4"/>
-          <stop offset="100%" stop-color="#787878"/>
+        <linearGradient id="sG" gradientUnits="userSpaceOnUse" x1="25" y1="25" x2="175" y2="175">
+          <stop offset="0%"   stop-color="#e8e8e8"/>
+          <stop offset="25%"  stop-color="#aaaaaa"/>
+          <stop offset="52%"  stop-color="#d6d6d6"/>
+          <stop offset="78%"  stop-color="#888888"/>
+          <stop offset="100%" stop-color="#c0c0c0"/>
         </linearGradient>
-        <linearGradient id="ringG" gradientUnits="userSpaceOnUse" x1="12" y1="12" x2="188" y2="188">
-          <stop offset="0%"   stop-color="#f4f4f4"/>
-          <stop offset="18%"  stop-color="#b8b8b8"/>
-          <stop offset="40%"  stop-color="#ececec"/>
-          <stop offset="62%"  stop-color="#7a7a7a"/>
-          <stop offset="82%"  stop-color="#d8d8d8"/>
-          <stop offset="100%" stop-color="#a0a0a0"/>
-        </linearGradient>
-        <filter id="armShadow" x="-8%" y="-8%" width="116%" height="116%">
-          <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="rgba(0,0,0,0.65)"/>
-        </filter>
       </defs>
-
-      <!-- Sfondo interno -->
-      <circle cx="100" cy="100" r="88" fill="#080808"/>
-
-      <!-- Anello esterno -->
-      <circle cx="100" cy="100" r="90" fill="none" stroke="url(#ringG)" stroke-width="9"/>
-      <circle cx="100" cy="100" r="81.5" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1.2"/>
-      <circle cx="100" cy="100" r="80"   fill="none" stroke="rgba(0,0,0,0.7)"       stroke-width="1.5"/>
-
-      <!-- Tre bracci della stella (logo ufficiale) -->
-      <g transform="translate(100,100)" filter="url(#armShadow)">
-        <path d="M -7,10 L -3.5,-18 C -2,-42 -1,-62 0,-82
-                        C 1,-62 2,-42 3.5,-18 L 7,10 L 0,17 Z"
-              fill="url(#armG)"/>
-        <path d="M -7,10 L -3.5,-18 C -2,-42 -1,-62 0,-82
-                        C 1,-62 2,-42 3.5,-18 L 7,10 L 0,17 Z"
-              fill="url(#armG)" transform="rotate(120)"/>
-        <path d="M -7,10 L -3.5,-18 C -2,-42 -1,-62 0,-82
-                        C 1,-62 2,-42 3.5,-18 L 7,10 L 0,17 Z"
-              fill="url(#armG)" transform="rotate(240)"/>
-      </g>
+      <!-- Sfondo nero -->
+      <circle cx="100" cy="100" r="94" fill="#060606"/>
+      <!-- Anello ufficiale -->
+      <circle cx="100" cy="100" r="91" fill="none" stroke="url(#sG)" stroke-width="8.5"/>
+      <!-- Stella a tre punte — path ufficiale Mercedes -->
+      <path transform="translate(100,100)"
+            d="M 0,-78 L 24,-14 L 68,39 L 0,28 L -68,39 L -24,-14 Z"
+            fill="url(#sG)"/>
     </svg>
   </div>
 </div>
