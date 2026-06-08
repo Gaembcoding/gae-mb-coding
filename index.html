@@ -1658,7 +1658,30 @@
   <div id="lightbox-caption"></div>
 </div>
 
-<!-- ═══ CHI SIAMO ═══ -->
+<!-- ═══ PARTNER ═══ -->
+<section id="partner" style="background: var(--dark-2); padding: 80px 0;">
+  <div class="inner" style="text-align:center;">
+    <div class="section-tag">Collaborazioni</div>
+    <h2 class="section-title">I nostri <span class="gold">partner</span></h2>
+    <div class="divider" style="margin: 0 auto 48px;"></div>
+
+    <div style="display:flex; align-items:center; justify-content:center; gap:60px; flex-wrap:wrap;">
+
+      <!-- Partner card -->
+      <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(201,168,76,0.15); border-radius:6px; padding: 40px 48px; max-width:480px; text-align:left; transition: border-color 0.3s;" onmouseover="this.style.borderColor='rgba(201,168,76,0.4)'" onmouseout="this.style.borderColor='rgba(201,168,76,0.15)'">
+        <img src="Gallery/retrofit-mbp.jpeg" alt="Retrofit MBP Coding" style="width:180px; height:auto; display:block; margin-bottom:28px;" />
+        <h3 style="font-family:'Rajdhani',sans-serif; font-size:1.2rem; font-weight:700; letter-spacing:0.1em; color:var(--white); margin-bottom:14px; text-transform:uppercase;">Retrofit MBP Coding</h3>
+        <p style="color:var(--gray-light); font-size:0.92rem; line-height:1.75; margin-bottom:20px;">Una collaborazione nata dalla stessa passione per la stella a tre punte. Insieme a Retrofit MBP Coding offriamo un servizio ancora più completo: codifiche, retrofit e mappature su Mercedes-Benz con la massima qualità e competenza.</p>
+        <a href="https://www.mercedesbenz-passion.com" target="_blank" style="display:inline-flex; align-items:center; gap:8px; color:var(--gold); font-size:0.8rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; text-decoration:none; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
+          Visita il sito
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ═══ CONTATTI ═══ -->
 <section id="contatti">
   <div class="inner">
@@ -2051,63 +2074,4 @@
     card.addEventListener('mousemove', function(e) {
       var r = card.getBoundingClientRect();
       var x = (e.clientX - r.left - r.width/2)  / r.width  * 12;
-      var y = (e.clientY - r.top  - r.height/2) / r.height * 12;
-      card.style.transform = 'perspective(700px) rotateY('+x+'deg) rotateX('+(-y)+'deg) translateZ(8px)';
-      card.style.boxShadow = (-x)+'px '+y+'px 28px rgba(201,168,76,.18)';
-    });
-    card.addEventListener('mouseleave', function() {
-      card.style.transform = '';
-      card.style.boxShadow = '';
-    });
-  });
-
-  /* ══════════════════════════════
-     PARALLAX LOGO HERO
-  ══════════════════════════════ */
-  (function() {
-    var hero = document.getElementById('hero');
-    var logo = document.querySelector('.hero-logo');
-    var glow = document.querySelector('.hero-glow');
-    if (!hero || !logo) return;
-    hero.addEventListener('mousemove', function(e) {
-      var x = (e.clientX/window.innerWidth  - .5) * 18;
-      var y = (e.clientY/window.innerHeight - .5) * 18;
-      logo.style.transform = 'translate('+x*.4+'px,'+y*.4+'px)';
-      if (glow) glow.style.transform = 'translate(calc(-50% + '+x*1.2+'px),calc(-50% + '+y*1.2+'px))';
-    });
-    hero.addEventListener('mouseleave', function() {
-      logo.style.transform = '';
-      if (glow) glow.style.transform = '';
-    });
-  })();
-
-  /* ══════════════════════════════
-     SCROLL REVEAL SEZIONI
-  ══════════════════════════════ */
-  (function() {
-    var targets = [
-      '.section-header',
-      '.servizio-card',
-      '.stat-item',
-      '.gallery-intro',
-      '.gallery-placeholder',
-      '.contact-card',
-      '.chi-text > p',
-      '.chi-feature'
-    ];
-    var els = document.querySelectorAll(targets.join(','));
-    if (!('IntersectionObserver' in window)) return;
-    var io = new IntersectionObserver(function(entries) {
-      entries.forEach(function(e) {
-        if (e.isIntersecting) {
-          e.target.classList.add('fade-up');
-          io.unobserve(e.target);
-        }
-      });
-    }, {threshold: 0.1});
-    els.forEach(function(el) { io.observe(el); });
-  })();
-
-</script>
-</body>
-</html>
+      var y = (e.clientY - r.top  -
