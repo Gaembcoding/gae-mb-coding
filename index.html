@@ -201,6 +201,72 @@
       0%, 100% { filter: drop-shadow(0 0 20px rgba(201,168,76,0.3)); }
       50%       { filter: drop-shadow(0 0 40px rgba(201,168,76,0.6)); }
     }
+    /* ── Fari Mercedes ── */
+    .hero-headlights {
+      position: relative;
+      width: 100%;
+      height: 60px;
+      margin-bottom: 8px;
+      pointer-events: none;
+      overflow: visible;
+    }
+    .headlight-left, .headlight-right {
+      position: absolute;
+      top: 50%;
+      width: 340px;
+      height: 2px;
+      transform-origin: right center;
+    }
+    .headlight-left {
+      right: 50%;
+      transform: translateY(-50%);
+      background: linear-gradient(to left, rgba(201,168,76,0.9), rgba(255,240,180,0.15), transparent);
+      animation: lightSweepLeft 3s ease-in-out infinite;
+    }
+    .headlight-right {
+      left: 50%;
+      transform: translateY(-50%);
+      background: linear-gradient(to right, rgba(201,168,76,0.9), rgba(255,240,180,0.15), transparent);
+      animation: lightSweepRight 3s ease-in-out infinite;
+    }
+    .headlight-left::before, .headlight-right::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      width: 100%;
+      height: 62px;
+      background: inherit;
+      filter: blur(18px);
+      opacity: 0.35;
+    }
+    .headlight-left::before { right: 0; transform: skewY(6deg); }
+    .headlight-right::before { left: 0; transform: skewY(-6deg); }
+
+    /* punto luce centrale */
+    .headlight-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 12px 6px rgba(201,168,76,0.9), 0 0 30px 12px rgba(201,168,76,0.4);
+      animation: centerPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes lightSweepLeft {
+      0%, 100% { opacity: 0.3; width: 200px; }
+      50%       { opacity: 1;   width: 340px; }
+    }
+    @keyframes lightSweepRight {
+      0%, 100% { opacity: 0.3; width: 200px; }
+      50%       { opacity: 1;   width: 340px; }
+    }
+    @keyframes centerPulse {
+      0%, 100% { transform: translate(-50%,-50%) scale(0.8); opacity: 0.6; }
+      50%       { transform: translate(-50%,-50%) scale(1.2); opacity: 1; }
+    }
+
     .hero-amg-stripe {
       display: flex;
       align-items: center;
@@ -1210,6 +1276,13 @@
       <img src="logo.png" alt="///GAE MB Coding Logo" />
     </div>
 
+    <!-- Fari Mercedes -->
+    <div class="hero-headlights">
+      <div class="headlight-left"></div>
+      <div class="headlight-center"></div>
+      <div class="headlight-right"></div>
+    </div>
+
     <div class="hero-amg-stripe">
       <span class="stripe"></span>
       <span class="stripe"></span>
@@ -1381,11 +1454,11 @@
 
     <!-- Tabs -->
     <div class="ntg-tabs">
-      <button class="ntg-tab active" onclick="showTab('ntg6')">NTG 6 / MBUX</button>
-      <button class="ntg-tab" onclick="showTab('ntg55')">NTG 5.5</button>
-      <button class="ntg-tab" onclick="showTab('ntg5')">NTG 5</button>
-      <button class="ntg-tab" onclick="showTab('ntg45')">NTG 4.5</button>
-      <button class="ntg-tab" onclick="showTab('ntg7')">NTG 7 / MBUX</button>
+      <button class="ntg-tab active" onclick="showTab('ntg6', this)">NTG 6 / MBUX</button>
+      <button class="ntg-tab" onclick="showTab('ntg55', this)">NTG 5.5</button>
+      <button class="ntg-tab" onclick="showTab('ntg5', this)">NTG 5</button>
+      <button class="ntg-tab" onclick="showTab('ntg45', this)">NTG 4.5</button>
+      <button class="ntg-tab" onclick="showTab('ntg7', this)">NTG 7 / MBUX</button>
     </div>
 
     <!-- NTG 6 -->
@@ -1859,11 +1932,11 @@
   });
 
   // NTG Tabs
-  function showTab(id) {
+  function showTab(id, btn) {
     document.querySelectorAll('.ntg-panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.ntg-tab').forEach(t => t.classList.remove('active'));
     document.getElementById('tab-' + id).classList.add('active');
-    event.target.classList.add('active');
+    btn.classList.add('active');
   }
 
   // Web3Forms submit
@@ -2011,67 +2084,4 @@
     };
 
     function activate(id) {
-      navLinks.forEach(function(link) {
-        link.classList.remove('spy-active');
-        if (link.getAttribute('href') === hrefMap[id]) {
-          link.classList.add('spy-active');
-        }
-      });
-    }
-
-    function onScroll() {
-      var offset = 80;
-      var currentId = null;
-
-      for (var i = sectionIds.length - 1; i >= 0; i--) {
-        var el = document.getElementById(sectionIds[i]);
-        if (el) {
-          var rect = el.getBoundingClientRect();
-          if (rect.top <= offset) {
-            currentId = sectionIds[i];
-            break;
-          }
-        }
-      }
-
-      if (currentId) {
-        activate(currentId);
-      } else {
-        navLinks.forEach(function(l){ l.classList.remove('spy-active'); });
-      }
-    }
-
-    window.addEventListener('scroll', onScroll, {passive: true});
-    onScroll();
-  });
-
-  /* ══════════════════════════════
-     PARTICELLE HERO
-  ══════════════════════════════ */
-  (function() {
-    var hero = document.getElementById('hero');
-    if (!hero) return;
-    var wrap = document.createElement('div');
-    wrap.style.cssText = 'position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1;';
-    hero.insertBefore(wrap, hero.firstChild);
-
-    function spawn() {
-      var p = document.createElement('div');
-      p.className = 'particle';
-      var size = Math.random() * 3 + 1;
-      p.style.cssText = 'width:'+size+'px;height:'+size+'px;left:'+(Math.random()*100)+'%;bottom:-10px;animation-duration:'+(Math.random()*10+8)+'s;animation-delay:'+(Math.random()*5)+'s;';
-      wrap.appendChild(p);
-      setTimeout(function(){ p.remove(); }, 18000);
-    }
-    for (var i=0;i<20;i++) spawn();
-    setInterval(spawn, 700);
-  })();
-
-  /* ══════════════════════════════
-     3D TILT SU CARD SERVIZI
-  ══════════════════════════════ */
-  document.querySelectorAll('.servizio-card').forEach(function(card) {
-    card.addEventListener('mousemove', function(e) {
-      var r = card.getBoundingClientRect();
-      var x = (e.clientX - r.left - r.width/2)  / r.width  * 12;
-      var y = (e.clientY - r.top
+      navLinks.forEa
