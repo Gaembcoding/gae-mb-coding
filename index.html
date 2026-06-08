@@ -2084,4 +2084,33 @@
     };
 
     function activate(id) {
-      navLinks.forEa
+      navLinks.forEach(function(link) {
+      link.classList.remove('spy-active');
+      if (link.getAttribute('href') === hrefMap[id]) link.classList.add('spy-active');
+    });
+  }
+
+  function onScroll() {
+    var offset = 80;
+    var currentId = null;
+    for (var i = sectionIds.length - 1; i >= 0; i--) {
+      var el = document.getElementById(sectionIds[i]);
+      if (el) {
+        var rect = el.getBoundingClientRect();
+        if (rect.top <= offset) { currentId = sectionIds[i]; break; }
+      }
+    }
+    if (currentId) {
+      activate(currentId);
+    } else {
+      navLinks.forEach(function(l){ l.classList.remove('spy-active'); });
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, {passive: true});
+  onScroll();
+  });
+
+</script>
+</body>
+</html>
