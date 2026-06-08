@@ -1190,25 +1190,68 @@
       justify-content: center;
     }
     .mb-star-wrap {
-      width: 190px;
-      height: 190px;
-      animation: mbIntro 3s ease forwards;
+      position: relative;
+      width: 210px;
+      height: 210px;
+      will-change: opacity, transform;
+      animation: mbStarIn 0.55s cubic-bezier(0.22,1,0.36,1) forwards;
     }
-    @keyframes mbIntro {
-      0%   { opacity: 0; transform: scale(0.7);
-             filter: drop-shadow(0 0 0px rgba(255,255,255,0)); }
-      18%  { opacity: 1; transform: scale(1);
-             filter: drop-shadow(0 0 4px rgba(255,255,255,0.4)); }
-      38%  { filter: drop-shadow(0 0 14px rgba(255,255,255,0.95))
-                     drop-shadow(0 0 40px rgba(201,168,76,1))
-                     drop-shadow(0 0 80px rgba(201,168,76,0.6)); }
-      62%  { filter: drop-shadow(0 0 20px rgba(255,255,255,1))
-                     drop-shadow(0 0 55px rgba(201,168,76,1))
-                     drop-shadow(0 0 110px rgba(201,168,76,0.55))
-                     drop-shadow(0 0 160px rgba(201,168,76,0.2)); }
-      82%  { filter: drop-shadow(0 0 10px rgba(255,255,255,0.6))
-                     drop-shadow(0 0 28px rgba(201,168,76,0.75)); }
-      100% { filter: drop-shadow(0 0 3px rgba(201,168,76,0.25)); opacity: 1; }
+    .mb-star {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+    }
+    /* Glow esterno (oro/ambra) — solo opacity+transform = zero lag */
+    .mb-glow-outer {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 420px; height: 420px;
+      margin: -210px 0 0 -210px;
+      border-radius: 50%;
+      background: radial-gradient(circle,
+        rgba(201,168,76,0.85) 0%,
+        rgba(201,168,76,0.45) 22%,
+        rgba(201,168,76,0.15) 50%,
+        transparent 68%);
+      opacity: 0;
+      will-change: opacity, transform;
+      animation: mbGlowOut 2.6s 0.45s cubic-bezier(0.4,0,0.2,1) forwards;
+      z-index: 1;
+    }
+    /* Glow interno (bianco brillante) */
+    .mb-glow-inner {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 220px; height: 220px;
+      margin: -110px 0 0 -110px;
+      border-radius: 50%;
+      background: radial-gradient(circle,
+        rgba(255,255,255,0.92) 0%,
+        rgba(255,255,255,0.35) 30%,
+        transparent 65%);
+      opacity: 0;
+      will-change: opacity, transform;
+      animation: mbGlowIn 2.6s 0.45s cubic-bezier(0.4,0,0.2,1) forwards;
+      z-index: 1;
+    }
+    @keyframes mbStarIn {
+      from { opacity: 0; transform: scale(0.78); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes mbGlowOut {
+      0%   { opacity: 0;    transform: scale(0.35); }
+      28%  { opacity: 0.95; transform: scale(1.05); }
+      55%  { opacity: 1;    transform: scale(1.0); }
+      80%  { opacity: 0.75; transform: scale(0.96); }
+      100% { opacity: 0.18; transform: scale(0.82); }
+    }
+    @keyframes mbGlowIn {
+      0%   { opacity: 0;    transform: scale(0.2); }
+      28%  { opacity: 0.85; transform: scale(1.08); }
+      55%  { opacity: 0.7;  transform: scale(1.0); }
+      80%  { opacity: 0.4;  transform: scale(0.95); }
+      100% { opacity: 0;    transform: scale(0.7); }
     }
   </style>
 </head>
@@ -1217,30 +1260,68 @@
 <!-- ═══ SPLASH SCREEN MERCEDES ═══ -->
 <div id="mb-splash">
   <div class="mb-star-wrap">
-    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <div class="mb-glow-outer"></div>
+    <div class="mb-glow-inner"></div>
+    <svg class="mb-star" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <linearGradient id="armG" x1="50%" y1="0%" x2="50%" y2="100%">
-          <stop offset="0%"   stop-color="#f2f2f2"/>
-          <stop offset="45%"  stop-color="#c0c0c0"/>
-          <stop offset="100%" stop-color="#707070"/>
+        <!-- Gradiente metallico per i bracci -->
+        <linearGradient id="armG" gradientUnits="userSpaceOnUse" x1="82" y1="15" x2="118" y2="185">
+          <stop offset="0%"   stop-color="#ffffff"/>
+          <stop offset="18%"  stop-color="#e8e8e8"/>
+          <stop offset="45%"  stop-color="#b0b0b0"/>
+          <stop offset="72%"  stop-color="#d4d4d4"/>
+          <stop offset="100%" stop-color="#787878"/>
         </linearGradient>
-        <linearGradient id="ringG" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%"   stop-color="#e8e8e8"/>
-          <stop offset="35%"  stop-color="#b0b0b0"/>
-          <stop offset="65%"  stop-color="#d8d8d8"/>
-          <stop offset="100%" stop-color="#888"/>
+        <!-- Gradiente anello esterno -->
+        <linearGradient id="ringG" gradientUnits="userSpaceOnUse" x1="12" y1="12" x2="188" y2="188">
+          <stop offset="0%"   stop-color="#f4f4f4"/>
+          <stop offset="18%"  stop-color="#b8b8b8"/>
+          <stop offset="40%"  stop-color="#ececec"/>
+          <stop offset="62%"  stop-color="#7a7a7a"/>
+          <stop offset="82%"  stop-color="#d8d8d8"/>
+          <stop offset="100%" stop-color="#a0a0a0"/>
         </linearGradient>
+        <!-- Gradiente hub centrale -->
+        <radialGradient id="hubG" cx="38%" cy="32%" r="65%">
+          <stop offset="0%"   stop-color="#f0f0f0"/>
+          <stop offset="40%"  stop-color="#c0c0c0"/>
+          <stop offset="100%" stop-color="#686868"/>
+        </radialGradient>
+        <!-- Ombra sottile sui bracci -->
+        <filter id="armShadow" x="-8%" y="-8%" width="116%" height="116%">
+          <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="rgba(0,0,0,0.65)"/>
+        </filter>
       </defs>
-      <!-- Outer ring -->
-      <circle cx="100" cy="100" r="89" fill="none" stroke="url(#ringG)" stroke-width="7.5"/>
-      <!-- Inner ring highlight -->
-      <circle cx="100" cy="100" r="82" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
-      <!-- Three-pointed star: 3 arms rotated 120° -->
-      <g transform="translate(100,100)" fill="url(#armG)">
-        <path d="M 0,-83 L 10,7 L 0,13 L -10,7 Z"/>
-        <path d="M 0,-83 L 10,7 L 0,13 L -10,7 Z" transform="rotate(120)"/>
-        <path d="M 0,-83 L 10,7 L 0,13 L -10,7 Z" transform="rotate(240)"/>
+
+      <!-- Sfondo scuro interno all'anello -->
+      <circle cx="100" cy="100" r="88" fill="#080808"/>
+
+      <!-- Anello esterno principale -->
+      <circle cx="100" cy="100" r="90" fill="none" stroke="url(#ringG)" stroke-width="9"/>
+      <!-- Bordo interno anello (profondità) -->
+      <circle cx="100" cy="100" r="81.5" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1.2"/>
+      <circle cx="100" cy="100" r="80"   fill="none" stroke="rgba(0,0,0,0.7)"       stroke-width="1.5"/>
+
+      <!-- Tre bracci della stella -->
+      <g transform="translate(100,100)" filter="url(#armShadow)">
+        <!-- Braccio su -->
+        <path d="M -7,10 L -3.5,-18 C -2,-42 -1,-62 0,-82
+                        C 1,-62 2,-42 3.5,-18 L 7,10 L 0,17 Z"
+              fill="url(#armG)"/>
+        <!-- Braccio basso-destra (rot 120°) -->
+        <path d="M -7,10 L -3.5,-18 C -2,-42 -1,-62 0,-82
+                        C 1,-62 2,-42 3.5,-18 L 7,10 L 0,17 Z"
+              fill="url(#armG)" transform="rotate(120)"/>
+        <!-- Braccio basso-sinistra (rot 240°) -->
+        <path d="M -7,10 L -3.5,-18 C -2,-42 -1,-62 0,-82
+                        C 1,-62 2,-42 3.5,-18 L 7,10 L 0,17 Z"
+              fill="url(#armG)" transform="rotate(240)"/>
       </g>
+
+      <!-- Hub centrale -->
+      <circle cx="100" cy="100" r="11"  fill="#111"/>
+      <circle cx="100" cy="100" r="9.5" fill="url(#hubG)"/>
+      <circle cx="100" cy="100" r="4"   fill="rgba(255,255,255,0.75)"/>
     </svg>
   </div>
 </div>
