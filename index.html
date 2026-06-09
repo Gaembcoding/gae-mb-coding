@@ -1205,7 +1205,7 @@
     /* ANELLO: disegno 0.4s→1.0s */
     .mb-ring {
       fill: none;
-      stroke: #d8ecff;
+      stroke: #C9A84C;
       stroke-width: 2.2;
       stroke-linecap: round;
       stroke-dasharray: 283;
@@ -1215,7 +1215,7 @@
     /* LINEE: disegno sfasato 0.4s→1.0s */
     .mb-line {
       fill: none;
-      stroke: #d8ecff;
+      stroke: #C9A84C;
       stroke-width: 1.8;
       stroke-linecap: round;
     }
@@ -1233,7 +1233,7 @@
     }
     /* CORE: appare a 0.9s */
     .mb-core {
-      fill: #d8ecff;
+      fill: #C9A84C;
       opacity: 0;
       animation: coreIn 0.2s 0.9s ease forwards;
     }
@@ -1243,8 +1243,8 @@
       height: 30px;
       margin-top: 2px;
       background: radial-gradient(ellipse at 50% 0%,
-        rgba(160,210,255,0.4) 0%,
-        rgba(160,210,255,0.12) 45%,
+        rgba(201,168,76,0.4) 0%,
+        rgba(201,168,76,0.12) 45%,
         transparent 72%);
       opacity: 0;
       animation: floorIn 0.4s 1.0s ease forwards;
@@ -1256,16 +1256,16 @@
     /* LED: 0%=1.0s 40%=1.4s 70%=1.7s 100%=2.0s poi JS fade */
     @keyframes ledGlow {
       0%   { filter: none; }
-      40%  { filter: drop-shadow(0 0 5px #a8d8ff)
-                     drop-shadow(0 0 16px rgba(120,190,255,0.9))
-                     drop-shadow(0 0 35px rgba(80,150,255,0.5)); }
-      70%  { filter: drop-shadow(0 0 9px #c4e4ff)
-                     drop-shadow(0 0 26px rgba(140,200,255,1))
-                     drop-shadow(0 0 60px rgba(80,150,255,0.6))
-                     drop-shadow(0 0 90px rgba(60,120,255,0.22)); }
-      100% { filter: drop-shadow(0 0 8px #b8deff)
-                     drop-shadow(0 0 22px rgba(130,195,255,0.88))
-                     drop-shadow(0 0 50px rgba(80,150,255,0.52)); }
+      40%  { filter: drop-shadow(0 0 5px #C9A84C)
+                     drop-shadow(0 0 16px rgba(201,168,76,0.9))
+                     drop-shadow(0 0 35px rgba(201,168,76,0.5)); }
+      70%  { filter: drop-shadow(0 0 9px #e0c060)
+                     drop-shadow(0 0 26px rgba(201,168,76,1))
+                     drop-shadow(0 0 60px rgba(201,168,76,0.6))
+                     drop-shadow(0 0 90px rgba(201,168,76,0.22)); }
+      100% { filter: drop-shadow(0 0 8px #C9A84C)
+                     drop-shadow(0 0 22px rgba(201,168,76,0.88))
+                     drop-shadow(0 0 50px rgba(201,168,76,0.52)); }
     }
 
   </style>
@@ -1856,7 +1856,7 @@
           </div>
           <div class="form-group">
             <label>Telefono / WhatsApp</label>
-            <input type="tel" name="phone" placeholder="+39 000 000 0000" />
+            <input type="tel" name="phone" placeholder="+39 000 000 0000" required />
           </div>
         </div>
         <div class="form-group">
@@ -2159,5 +2159,4 @@
   });
 
 </script>
-</body>
-</html>
+</body></html>
