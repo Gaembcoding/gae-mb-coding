@@ -1178,7 +1178,7 @@
     .fade-up { animation: fadeUp .7s cubic-bezier(.22,1,.36,1) both; }
 
     /* ══════════════════════════════
-       SPLASH SCREEN MERCEDES
+       SPLASH SCREEN — LED MERCEDES
     ══════════════════════════════ */
     #mb-splash {
       position: fixed;
@@ -1191,69 +1191,75 @@
     }
     .mb-star-wrap {
       position: relative;
-      width: 220px;
-      height: 194px;
-      will-change: opacity, transform;
-      animation: mbStarIn 0.55s cubic-bezier(0.22,1,0.36,1) forwards;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    .mb-star {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
+    .logo-tech {
+      width: 240px;
+      height: 240px;
+      overflow: visible;
+      animation: ledGlow 2s 0.9s cubic-bezier(0.4,0,0.2,1) forwards;
     }
-    /* Glow esterno (oro/ambra) — solo opacity+transform = zero lag */
-    .mb-glow-outer {
-      position: absolute;
-      top: 50%; left: 50%;
-      width: 420px; height: 420px;
-      margin: -210px 0 0 -210px;
-      border-radius: 50%;
-      background: radial-gradient(circle,
-        rgba(201,168,76,0.85) 0%,
-        rgba(201,168,76,0.45) 22%,
-        rgba(201,168,76,0.15) 50%,
-        transparent 68%);
+    /* Anello */
+    .mb-ring {
+      fill: none;
+      stroke: #d8ecff;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-dasharray: 283;
+      stroke-dashoffset: 283;
+      animation: drawRing 0.65s 0.45s cubic-bezier(0.4,0,0.2,1) forwards;
+    }
+    /* Tre linee (bracci) */
+    .mb-line {
+      fill: none;
+      stroke: #d8ecff;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+    }
+    .mb-line:nth-child(2) { stroke-dasharray: 43; stroke-dashoffset: 43;
+                            animation: drawLine 0.38s 0.08s ease forwards; }
+    .mb-line:nth-child(3) { stroke-dasharray: 43; stroke-dashoffset: 43;
+                            animation: drawLine 0.38s 0.22s ease forwards; }
+    .mb-line:nth-child(4) { stroke-dasharray: 43; stroke-dashoffset: 43;
+                            animation: drawLine 0.38s 0.36s ease forwards; }
+    /* Punto centrale */
+    .mb-core {
+      fill: #d8ecff;
       opacity: 0;
-      will-change: opacity, transform;
-      animation: mbGlowOut 2.6s 0.45s cubic-bezier(0.4,0,0.2,1) forwards;
-      z-index: 1;
+      animation: coreIn 0.25s 0.6s ease forwards;
     }
-    /* Glow interno (bianco brillante) */
-    .mb-glow-inner {
-      position: absolute;
-      top: 50%; left: 50%;
-      width: 220px; height: 220px;
-      margin: -110px 0 0 -110px;
-      border-radius: 50%;
-      background: radial-gradient(circle,
-        rgba(255,255,255,0.92) 0%,
-        rgba(255,255,255,0.35) 30%,
-        transparent 65%);
+    /* Riflesso sul pavimento */
+    .mb-floor {
+      width: 180px;
+      height: 28px;
+      margin-top: 4px;
+      background: radial-gradient(ellipse at 50% 0%,
+        rgba(160,210,255,0.35) 0%,
+        rgba(160,210,255,0.1) 40%,
+        transparent 72%);
       opacity: 0;
-      will-change: opacity, transform;
-      animation: mbGlowIn 2.6s 0.45s cubic-bezier(0.4,0,0.2,1) forwards;
-      z-index: 1;
+      animation: floorIn 0.5s 1.1s ease forwards;
     }
-    @keyframes mbStarIn {
-      from { opacity: 0; transform: scale(0.78); }
-      to   { opacity: 1; transform: scale(1); }
+    @keyframes drawRing { to { stroke-dashoffset: 0; } }
+    @keyframes drawLine { to { stroke-dashoffset: 0; } }
+    @keyframes coreIn   { to { opacity: 1; } }
+    @keyframes floorIn  { to { opacity: 1; } }
+    @keyframes ledGlow {
+      0%   { filter: none; }
+      25%  { filter: drop-shadow(0 0 4px #a0d0ff)
+                     drop-shadow(0 0 14px rgba(120,190,255,0.85))
+                     drop-shadow(0 0 30px rgba(80,150,255,0.45)); }
+      55%  { filter: drop-shadow(0 0 7px #c0e0ff)
+                     drop-shadow(0 0 22px rgba(140,200,255,0.95))
+                     drop-shadow(0 0 50px rgba(80,150,255,0.55))
+                     drop-shadow(0 0 80px rgba(60,120,255,0.2)); }
+      80%  { filter: drop-shadow(0 0 5px #a0d0ff)
+                     drop-shadow(0 0 16px rgba(120,190,255,0.7)); }
+      100% { filter: drop-shadow(0 0 3px rgba(160,210,255,0.4)); }
     }
-    @keyframes mbGlowOut {
-      0%   { opacity: 0;    transform: scale(0.35); }
-      28%  { opacity: 0.95; transform: scale(1.05); }
-      55%  { opacity: 1;    transform: scale(1.0); }
-      80%  { opacity: 0.75; transform: scale(0.96); }
-      100% { opacity: 0.18; transform: scale(0.82); }
-    }
-    @keyframes mbGlowIn {
-      0%   { opacity: 0;    transform: scale(0.2); }
-      28%  { opacity: 0.85; transform: scale(1.08); }
-      55%  { opacity: 0.7;  transform: scale(1.0); }
-      80%  { opacity: 0.4;  transform: scale(0.95); }
-      100% { opacity: 0;    transform: scale(0.7); }
-    }
+
   </style>
 </head>
 <body>
@@ -1261,9 +1267,14 @@
 <!-- ═══ SPLASH SCREEN MERCEDES ═══ -->
 <div id="mb-splash">
   <div class="mb-star-wrap">
-    <div class="mb-glow-outer"></div>
-    <div class="mb-glow-inner"></div>
-    <img class="mb-star" src="mb-logo.png" alt="Mercedes-Benz"/>
+    <svg class="logo-tech" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <circle class="mb-ring" cx="60" cy="60" r="45"/>
+      <path  class="mb-line" d="M60 60 L60 18"/>
+      <path  class="mb-line" d="M60 60 L24 82"/>
+      <path  class="mb-line" d="M60 60 L96 82"/>
+      <circle class="mb-core" cx="60" cy="60" r="3.5"/>
+    </svg>
+    <div class="mb-floor"></div>
   </div>
 </div>
 
